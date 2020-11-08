@@ -1,75 +1,39 @@
 #include <iostream>
 
-class Wektor
+struct Kokardka
 {
-private:
-    Wektor() : dlugosc{4}, pojemnosc{4}
-    {
-        std::cout << "Konstruktor domyslny wektora.\n";
-        x = new double[dlugosc];
-        for (int i = 0; i < dlugosc; i++)
-            x[i] = 0; // nie rozumiem - zajmij tyle co tu miejsc na to, bym mogła wpisać v tam?
-    }
-
-    Wektor(int podanaDlugosc) : dlugosc{podanaDlugosc}, pojemnosc{podanaDlugosc}
-    {
-        std::cout << "Konstruktor parametryczny Wektora o dlugosci " << dlugosc << ".\n";
-        x = new double[dlugosc];
-        for (int i = 0; i < dlugosc; i++)
-            x[i] = 2 * i;
-    }
-
-    // void operator[](int liczba) { return this->liczba = f.x[liczba]; }
-
-    void drukujWartosci()
-    {
-        for (int i = 0; i < dlugosc; i++)
-            std::cout << "wartość wektora na miejscu " << i << " to " << x[i] << std::endl;
-    }
-
-    ~Wektor()
-    {
-        std::cout << "Destruktor wektora.\n";
-        delete[] x;
-    }
+    int dlugosc;
 
 public:
-    double* x;
+    Kokardka(int d) : dlugosc{d} { dlugosc = 40; };
+    ~Kokardka() { std::cout << "Rozwiązana kokardka." << std::endl; }
+};
+int getDlugosc(Kokardka w)
+{
+    return w.dlugosc;
+}
 
-    int getDlugosc() { return this->dlugosc; }
-    int getPojemnosc() { return this->pojemnosc; }
-    int getX(int numer) { return this->x[numer]; }
+struct Prezent
+{
+    Kokardka wzietaKokardka();
 
-private:
-    int dlugosc;
-    int pojemnosc;
-    // int* liczba;
+    int dk;
+
+public:
+    Prezent(int podanaDlug) : dk{podanaDlug} { dk = getDlugosc(wzietaKokardka); };
+
+    ~Prezent() { std::cout << "Rozpokowany prezent." << std::endl; }
 };
 
 int main()
 {
-    Wektor Vector1{};
-    Wektor Vector2{10}; // czemu taki nawias
-
-    std::cout << Vector1.getDlugosc() << " " << Vector1.getPojemnosc() << std::endl;
-    std::cout << Vector2.getDlugosc() << " " << Vector2.getPojemnosc() << std::endl;
-    // Vector1.drukujWartosci();
-
-    // Vector1.zmienDlugosc(7);
+    Kokardka k1(9);
+    Prezent  p1{8};
+    // Kokardka k2(7);
+    // Prezent  p2{};
+    std::cout << "Prezent p1 ma długość kokardki równą " << p1.dk << "cm. Ale fajnie :)"
+              << std::endl;
     std::cout << " " << std::endl;
-    // Vector1.drukujWartosci();
+    std::cout << "Koniec main, wszyscy mogą iść rozpakowywać prezenty." << std::endl;
     std::cout << " " << std::endl;
-    Vector2.drukujWartosci();
-    std::cout << " " << std::endl;
-    // Vector2.zmienDlugosc(8);
-    std::cout << " " << std::endl;
-    Vector2.drukujWartosci();
-
-    //  std::cout << "getX tu da wartość =  " << Vector2.getX(6) << std::endl;
-    std::cout << " " << std::endl;
-    std::cout << " " << std::endl;
-
-    Vector2.podawaniewartosci(6);
-
-    std::cout << "Koniec main :) \n";
 }
