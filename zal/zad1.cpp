@@ -5,7 +5,7 @@
 TEST_CASE("RAII", "[]")
 {
     {
-        ResourceManager rm{};
+        ResourceManager rm{};//konstr domyśl
         REQUIRE(ConstructionTracker::defaults == 1);
         REQUIRE_NOTHROW(rm.get());
     }
