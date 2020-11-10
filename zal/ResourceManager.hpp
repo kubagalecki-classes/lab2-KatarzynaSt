@@ -18,7 +18,7 @@ public:
 
     ResourceManager(ResourceManager&& konstrPrzeno) 
     {
-        d   = konstrPrzeno.x;
+        x   = konstrPrzeno.x;
         konstrPrzeno.x = nullptr;
     }
 
