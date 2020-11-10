@@ -1,41 +1,28 @@
 #include <iostream>
-struct Kokardka
-{
-    int dlugosc;
+#include <utility>
 
-public:
-    // Kokardka() : dlugosc{d} { dlugosc = 40; };
-    Kokardka(int d) : dlugosc{d} { dlugosc = 30; };
-    ~Kokardka() { std::cout << "Rozwiązana kokardka." << std::endl; }
-};
-int getDlugosc(Kokardka w)
+// Przeciążenie nr 1, zwykła referencja
+// void print_int(cons int& i)
+//{
+//   std::cout << "Ref: " << i << '\n';
+//}
+
+// Przeciążenie nr 2, RVR
+void print_int(const int& i)
 {
-    return w.dlugosc;
+    std::cout << "RVR: " << i << '\n';
 }
 
-struct Prezent
+int getInt()
 {
-    Kokardka wzietaKokardka;
-
-public:
-    Prezent(int podanaDlug) : wzietaKokardka{podanaDlug} {}
-
-    ~Prezent()
-    {
-        std::cout << "Rozpokowany prezent. "
-                  << "Dlugosc wziętej kokordki " << getDlugosc(wzietaKokardka) << "." << std::endl;
-    }
-};
+    return 42;
+}
 
 int main()
 {
-    Kokardka k1(9);
-    Prezent  p1{8};
-    // Kokardka k2(7);
-    // Prezent  p2{};
-    std::cout << "Prezent p1 ma długość kokardki równą " << p1.wzietaKokardka.dlugosc
-              << "cm. Ale fajnie :)" << std::endl;
-    std::cout << " " << std::endl;
-    std::cout << "Koniec main, wszyscy mogą iść rozpakowywać prezenty." << std::endl;
-    std::cout << " " << std::endl;
+    int liczba = 314159; // liczba to lvalue
+
+    print_int(liczba);   // przeciążenie 1
+    print_int(getInt()); // przeciążenie 2
+    print_int(13);       // przeciążenie 2, bo '13' to rvalue
 }

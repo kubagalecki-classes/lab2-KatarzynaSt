@@ -4,15 +4,53 @@
 
 class ResourceManager
 {
-private:
-Resource *x;
 public:
-ResourceManager() { std::cout << "Domyslny konstruktor." << std::endl; }
-    double get() 
+
+    ResourceManager() 
+    {
+      x = new Resource;
+    }
+
+    double get()
     {
         return x->get();
     }
 
-    ResourceManager (const ResourceManager& K) { std::cout << "Skopiowany ResourceManager" << std::endl;}
-    ~ResourceManager() { std::cout << "Zniszczony ResourceManager" << std::endl; }
+    ResourceManager(ResourceManager&& konstrPrzeno) 
+    {
+        d   = konstrPrzeno.x;
+        konstrPrzeno.x = nullptr;
+    }
+
+    ResourceManager& operator=(ResourceManager&& operPrzeno) 
+    {
+        if (&operPrzeno == this)
+            return *this;
+        delete x;
+        x       = operPrzeno.x;
+        operPrzeno.x = nullptr;
+        return *this;
+    }
+
+ResourceManager(const ResourceManager& KonstrKop)  
+    {
+        x = new Resource;
+        *x = *KonstrKop.x;
+    }
+
+    ResourceManager& operator=(const ResourceManager& OperPrzyp) 
+    {
+        if (this != &OperPrzyp)
+            *x= *OperPrzyp.x;
+        return *this;
+    }
+
+         ~ResourceManager()  
+    {
+      delete x;
+    }
+
+    private:
+    Resource *x;
+
 };
